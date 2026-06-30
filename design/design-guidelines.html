@@ -328,6 +328,7 @@
         <li><strong>Role context</strong> — user card at the bottom shows who/what role.</li>
         <li><strong>Collapsible</strong> — 64px icon rail with tooltips for power users.</li>
         <li><strong>Role-filtered</strong> — items a role can't use don't render.</li>
+        <li><strong>Per-role counts</strong> — BD 4 · Engineering/CFT/SCM/Estimation 2 · CEO/COO 3 · Admin 6.</li>
       </ul>
     </div>
   </div>
@@ -418,7 +419,7 @@
     <div class="bt span2"><div class="pt">Loading (skeleton shimmer)</div><div class="sk" style="width:90%"></div><div class="sk" style="width:70%;margin-top:8px"></div><div class="sk" style="width:80%;margin-top:8px"></div></div>
     <div class="bt span2"><div class="pt">Turnaround trend</div><div style="font-size:11px;color:var(--st-eng);font-weight:600;margin:-4px 0 8px">↳ Median down to 11 days from 14.</div><div class="bars"><div class="bar-c"><div class="bk" style="height:50%;background:var(--st-eng)"></div></div><div class="bar-c"><div class="bk" style="height:65%;background:var(--st-eng)"></div></div><div class="bar-c"><div class="bk" style="height:45%;background:var(--st-eng)"></div></div><div class="bar-c"><div class="bk" style="height:70%;background:var(--st-eng)"></div></div></div></div>
   </div>
-  <p class="muted" style="font-size:12px;margin-top:12px">Background = static aerospace <strong>blueprint grid</strong> (no aurora/beams). Micro-interactions only — hover lift, KPI count-up, staggered reveal, skeleton shimmer — all honor <code>prefers-reduced-motion</code>. Aceternity used <em>selectively</em>, never as the system.</p>
+  <p class="muted" style="font-size:12px;margin-top:12px">Background = static aerospace <strong>blueprint grid</strong> (no aurora/beams). Micro-interactions only — hover lift, KPI count-up, staggered reveal, skeleton shimmer, seamless sidebar collapse/expand — all honor <code>prefers-reduced-motion</code>. Aceternity used <em>selectively</em>, never as the system. The <strong>one continuous animation</strong> is the <strong>landing/login blueprint draw-in</strong> (Rangsons parts — duct assembly, heat-exchanger core, SATCOM dish — drawn like a CAD sheet), entry page only.</p>
 </section>
 
 <!-- COMPONENTS -->
@@ -471,14 +472,15 @@
 <!-- SCREENS -->
 <section id="screens">
   <div class="eyebrow">Screen map</div>
-  <h2>All 13 screens — no gaps</h2>
+  <h2>All 14 screens — no gaps</h2>
   <div class="smap" style="margin-top:20px">
-    <div class="scr"><div class="rt">/</div><div class="nm">Landing / Sign-in</div><div class="ro">Branded splash · all</div></div>
+    <div class="scr"><div class="rt">/</div><div class="nm">Landing / Sign-in</div><div class="ro">Branded splash + draw-in · all</div></div>
     <div class="scr"><div class="rt">/login</div><div class="nm">Login</div><div class="ro">Entry · all</div></div>
+    <div class="scr"><div class="rt">/needs-attention</div><div class="nm">Needs attention</div><div class="ro">All · overdue/stale/queries</div></div>
     <div class="scr"><div class="rt">/dashboard</div><div class="nm">Dashboard &amp; Reports</div><div class="ro">Managers · bento</div></div>
     <div class="scr"><div class="rt">/enquiries</div><div class="nm">Enquiries List</div><div class="ro">Register · all</div></div>
     <div class="scr"><div class="rt">/enquiries/new</div><div class="nm">New Enquiry</div><div class="ro">BD, Admin</div></div>
-    <div class="scr"><div class="rt">/enquiries/:id</div><div class="nm">Enquiry Overview</div><div class="ro">Hub</div></div>
+    <div class="scr"><div class="rt">/enquiries/:id</div><div class="nm">Enquiry Overview</div><div class="ro">Hub · stage tracker + gate ledger + SLA meter</div></div>
     <div class="scr"><div class="rt">…/parts</div><div class="nm">Parts &amp; BOM</div><div class="ro">Engineering</div></div>
     <div class="scr"><div class="rt">…/feasibility</div><div class="nm">CFT Feasibility</div><div class="ro">CFT</div></div>
     <div class="scr"><div class="rt">…/rm-os</div><div class="nm">SCM RM &amp; OS</div><div class="ro">SCM</div></div>
