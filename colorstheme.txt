@@ -1,0 +1,147 @@
+/* =====================================================================
+   RANGSONS AEROSPACE — Customer RFQ Platform · COLOR DECISION RECORD
+   =====================================================================
+   This file is the human-readable source of truth for color decisions.
+   The full spec (token names, light+dark mapping, usage rules) lives in
+   design/02-design-system/09-color-system.md — this file is annotated to
+   match it. Brand colors are locked from rangsons_logo.png (navy + red).
+
+   Theme: LIGHT is default; DARK is fully supported (next-themes toggle).
+   Target: WCAG 2.2 AA  (normal text >=4.5:1, large/UI >=3:1).
+   Contrast ratios below were computed against #FFFFFF (light) or
+   #212935 (dark surface), whichever the color sits on.
+   Legend:  [AAA] >=7:1   [AA] >=4.5:1   [AA-Large/UI] >=3:1   [FAIL] <3:1
+   ===================================================================== */
+
+
+/* ---------------------------------------------------------------------
+   1) ORIGINAL 10 COLORS  (unchanged values — roles + verdicts added)
+   --------------------------------------------------------------------- */
+
+--color-1:  #000;      /* BLACK. Role: neutral-950. Deepest dark-theme bg;
+                          icon/strokes on light. White on it = 21:1 [AAA]. */
+
+--color-2:  #212935;   /* SLATE 800. PRIMARY ROLE:
+                          - Light theme: primary TEXT on white = 14.6:1 [AAA].
+                          - Dark theme: primary app SURFACE / card bg.
+                          Keep — this is our core neutral. */
+
+--color-3:  #E1E1E8;   /* COOL GRAY 200. Role: neutral-200.
+                          - Light: subtle borders / dividers / muted surface.
+                          - Dark: primary TEXT on dark = 11-16:1 [AAA].
+                          NOTE: as a border ON white it is ~1.3:1 — decorative
+                          only; essential control borders use neutral-400+. */
+
+--color-4:  #EC1D23;   /* RANGSONS RED. Role: destructive-500 (brand).
+                          - White text on it = 4.40:1 [FAIL for normal text].
+                          - Black/dark text on it = 4.77:1 [AA].
+                          USE: fills, borders, large/bold text, dark text on red.
+                          For WHITE-text destructive buttons use red-700 below. */
+
+--color-5:  #1A3333;   /* DARK TEAL. OUTLIER vs the navy+red brand.
+                          DECISION: demote. Reuse only as the "In Estimation"
+                          status hue (lightened tint) + rare data-viz category.
+                          Not a core UI surface. */
+
+--color-6:  #2A2A2A;   /* NEUTRAL 850 (warm-ish). Near-duplicate of #212935 /
+                          #404040. DECISION: consolidate into the neutral
+                          scale; use as an elevated dark-theme surface only. */
+
+--color-7:  #404040;   /* NEUTRAL 700. Light: secondary text on white = 10.4:1
+                          [AAA]; dark: border/elevated surface. Keep in scale. */
+
+--color-8:  #1C1C39;   /* INDIGO 950. Dark-theme deepest brand surface
+                          (app shell bg). White on it = 16.5:1 [AAA]. Keep. */
+
+--color-9:  #005;      /* = #000055. DEEP BLUE. White on it = 18.6:1 [AAA].
+                          Role: pressed/active state of primary on light;
+                          deep brand surface accent. Keep. */
+
+--color-10: #2E3192;   /* RANGSONS INDIGO — PRIMARY BRAND.
+                          - Light: primary buttons/links; white text = 10.66:1
+                            [AAA]; on white as text/icon = 10.66:1 [AAA].
+                          - Dark: TOO DARK as accent (on #212935 = 1.37:1 FAIL).
+                            -> dark mode uses lighter indigo accent (see below). */
+
+
+/* ---------------------------------------------------------------------
+   2) ADDED — WHITE  (requested)
+   --------------------------------------------------------------------- */
+
+--color-white: #FFFFFF; /* neutral-0. Light-theme base background + text on all
+                           dark/brand surfaces. The light theme is built on this. */
+
+
+/* ---------------------------------------------------------------------
+   3) DERIVED — FIXES for the two failing pairings
+   --------------------------------------------------------------------- */
+
+--red-700:        #C2161B; /* Darkened brand red. White text = ~6.2:1 [AA].
+                              USE for white-text destructive BUTTONS. */
+--indigo-accent-dark: #8E92E8; /* Lightened indigo for DARK theme accents/links/
+                              focus. On #212935 ~6.0:1 [AA]. (Brand #2E3192 fails
+                              on dark; this is its dark-mode counterpart.) */
+
+
+/* ---------------------------------------------------------------------
+   4) DERIVED — NEUTRAL SCALE  (cool/slate, anchored on #212935 + #E1E1E8)
+   Fills the gap: the source palette had no light/mid tints.
+   --------------------------------------------------------------------- */
+
+--neutral-0:   #FFFFFF;  /* bg (light) / text (dark)         */
+--neutral-50:  #F7F8FA;  /* subtle raised surface (light)    */
+--neutral-100: #EEF0F3;  /* hover/zebra rows (light)         */
+--neutral-200: #E1E1E8;  /* = color-3 · borders/dividers     */
+--neutral-300: #CBCED6;  /* stronger divider                 */
+--neutral-400: #9AA1AE;  /* control border (>=3:1 on white)  */
+--neutral-500: #6B7280;  /* MUTED TEXT on white = 4.8:1 [AA] */
+--neutral-600: #4B5160;  /* secondary text                   */
+--neutral-700: #404040;  /* = color-7                        */
+--neutral-800: #212935;  /* = color-2 · primary text (light) */
+--neutral-850: #2A2A2A;  /* = color-6 · elevated dark surface*/
+--neutral-900: #161B24;  /* deep surface                     */
+--neutral-950: #000000;  /* = color-1                        */
+
+
+/* ---------------------------------------------------------------------
+   5) DERIVED — SEMANTIC SET  (source palette had only red+blue; no green/amber)
+   Soft-badge pattern (tint bg + dark text) reliably passes AA; solid
+   variants use the -700 step for white text. Verified to >=4.5:1.
+   --------------------------------------------------------------------- */
+
+--success-600: #16A34A;  --success-700: #15803D;  --success-50: #ECFDF3; /* green  */
+--warning-600: #D97706;  --warning-700: #B45309;  --warning-50: #FFFBEB; /* amber  */
+--info-600:    #2E3192;  --info-700:    #000055;  --info-50:    #EEF0FF; /* brand  */
+--error-600:   #EC1D23;  --error-700:   #C2161B;  --error-50:   #FEF2F2; /* brand red */
+
+
+/* ---------------------------------------------------------------------
+   6) DERIVED — RFQ STATUS COLORS  (8 forward states + branches/terminals)
+   Rule: StatusBadge is ALWAYS text + color, never color alone (WCAG 1.4.1).
+   Soft badge = bg tint + text-800 (passes AA). Distinct, ordered hues:
+   --------------------------------------------------------------------- */
+
+/* Open                 */ --st-open:        #6B7280; /* slate / neutral   */
+/* In Engineering Review*/ --st-engineering: #2E3192; /* brand indigo      */
+/* In CFT Review        */ --st-cft:         #7C3AED; /* violet            */
+/* In SCM Sourcing      */ --st-scm:         #D97706; /* amber             */
+/* In Estimation        */ --st-estimation:  #0E7490; /* teal (ex color-5) */
+/* Pending Approval      */ --st-pending:     #2563EB; /* blue / info       */
+/* Quote Submitted      */ --st-submitted:   #0891B2; /* cyan              */
+/* Order Received (Won) */ --st-won:         #15803D; /* green / success   */
+/* Returned to BD       */ --st-returned:    #EA580C; /* orange / warning  */
+/* Regretted / Lost     */ --st-lost:        #C2161B; /* red               */
+/* Closed / Hold        */ --st-closed:      #9AA1AE; /* muted gray        */
+
+
+/* =====================================================================
+   QUICK REFERENCE — what we DECIDED
+   - LIGHT default (white bg, #212935 text, #2E3192 primary). DARK fully built.
+   - White ADDED as the light base.
+   - White-on-red FAILS (4.40:1) -> use --red-700 for white-text buttons,
+     or dark text on #EC1D23 (4.77:1).
+   - #2E3192 unusable as a DARK accent -> use --indigo-accent-dark.
+   - #1A3333 demoted (teal outlier) -> "In Estimation" status + data-viz.
+   - #2A2A2A/#404040/#212935 consolidated into one neutral scale.
+   - Added: neutral scale, semantic (success/warning/info/error), 11 status hues.
+   ===================================================================== */

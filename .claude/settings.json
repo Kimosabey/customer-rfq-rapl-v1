@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Copy-Item \"d:\\\\Harshan\\\\rapl-stuffs\\\\customer-RFQ-rapl\\\\rangsons-logo2.png\" \"d:\\\\Harshan\\\\rapl-stuffs\\\\customer-RFQ-rapl\\\\design\\\\07-references\\\\assets\\\\rangsons-logo-mark.png\" -Force)",
+      "Bash(git --version)"
+    ]
+  }
+}

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="../rangsons-logo2.png" />
+<title>Rangsons RFQ — Design & Brand Guidelines</title>
+<style>
+  /* ===== TOKENS ===== */
+  :root{
+    --bg:#FFFFFF; --fg:#212935; --card:#FFFFFF; --card-2:#F7F8FA;
+    --muted:#EEF0F3; --muted-fg:#6B7280; --border:#E1E1E8; --input:#CBCED6;
+    --primary:#2E3192; --primary-fg:#FFFFFF; --accent:#EEF0FF; --accent-fg:#2E3192;
+    --destructive:#EC1D23; --destructive-strong:#C2161B; --success:#15803D; --warning:#B45309;
+    --st-open:#6B7280; --st-eng:#2E3192; --st-cft:#7C3AED; --st-scm:#D97706; --st-est:#0E7490;
+    --st-pending:#2563EB; --st-submitted:#0891B2; --st-won:#15803D; --st-returned:#EA580C; --st-lost:#C2161B; --st-closed:#9AA1AE;
+    --warning-bg:#FFFBEB;
+    --grad-brand:linear-gradient(160deg,#3A3EB0 0%,#2E3192 45%,#1C1C39 100%);
+    --grad-sky:linear-gradient(135deg,#2E3192,#2563EB);
+    --shadow-1:0 1px 2px rgba(16,24,40,.06); --shadow-2:0 6px 16px -4px rgba(16,24,40,.12); --shadow-3:0 20px 40px -12px rgba(16,24,40,.22);
+    --glow:0 10px 40px -8px rgba(46,49,146,.45);
+    --radius-md:8px; --radius-lg:12px; --radius-xl:18px;
+    --font:"Geist","Geist Sans",Inter,ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;
+    --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  [data-theme="dark"]{
+    --bg:#0F131A; --fg:#E1E1E8; --card:#212935; --card-2:#1B212C;
+    --muted:#2A2A2A; --muted-fg:#9AA1AE; --border:#2A2A2A; --input:#404040;
+    --primary:#2E3192; --primary-fg:#FFFFFF; --accent:#1C1C39; --accent-fg:#8E92E8;
+    --st-open:#9AA1AE; --st-eng:#8E92E8; --st-cft:#a78bfa; --st-scm:#f0a44a; --st-est:#22b8cf;
+    --st-pending:#5b8def; --st-submitted:#2cc4dd; --st-won:#34c06a; --st-returned:#fb7a3c; --st-lost:#f0656a; --st-closed:#9AA1AE;
+    --warning-bg:#2a2410;
+    --grad-brand:linear-gradient(160deg,#3A3EB0 0%,#23267a 50%,#101127 100%);
+    --shadow-1:0 0 0 1px rgba(255,255,255,.05); --shadow-2:0 8px 20px rgba(0,0,0,.45); --shadow-3:0 24px 48px rgba(0,0,0,.6);
+    --glow:0 12px 48px -8px rgba(46,49,146,.6);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:72px;scrollbar-width:none;-ms-overflow-style:none}
+  *{scrollbar-width:none;-ms-overflow-style:none} *::-webkit-scrollbar{width:0;height:0;display:none}
+  body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  h1{font-size:clamp(30px,5vw,46px);font-weight:700;letter-spacing:-.025em;line-height:1.04}
+  h2{font-size:clamp(20px,2.4vw,26px);font-weight:700;letter-spacing:-.015em;margin-bottom:4px}
+  h3{font-size:16px;font-weight:600}
+  .muted{color:var(--muted-fg)}
+  a{color:var(--accent-fg);text-decoration:none} a:hover{text-decoration:underline}
+  code,.mono{font-family:var(--mono);font-size:12.5px}
+  svg{display:block}
+  section{padding:clamp(36px,5vw,60px) max(clamp(16px,4vw,24px),calc((100% - 1200px)/2));border-bottom:1px solid var(--border)}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-fg);margin-bottom:10px}
+  .eyebrow::before{content:"";width:22px;height:2px;border-radius:2px;background:var(--grad-sky)}
+  .lead{font-size:clamp(14px,1.4vw,15px);color:var(--muted-fg);max-width:72ch;margin-top:8px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow-1);transition:transform .18s ease,box-shadow .18s ease}
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-2)}
+  .card.feature{border-top:3px solid transparent;border-image:var(--grad-sky) 1}
+
+  /* ===== animation utils ===== */
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  /* aurora/beam backgrounds intentionally NOT used (Aceternity policy: enterprise tool, not a showcase) */
+  @keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
+  .reveal{animation:rise .55s both} .reveal:nth-child(2){animation-delay:.06s}.reveal:nth-child(3){animation-delay:.12s}.reveal:nth-child(4){animation-delay:.18s}.reveal:nth-child(5){animation-delay:.24s}.reveal:nth-child(6){animation-delay:.3s}
+  .sk{background:linear-gradient(90deg,var(--muted) 25%,color-mix(in srgb,var(--muted) 60%,var(--card)) 37%,var(--muted) 63%);background-size:400% 100%;animation:shimmer 1.4s ease infinite;border-radius:6px;height:12px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  /* ===== top nav ===== */
+  header.top{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:16px;height:56px;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+  .logo{width:30px;height:30px;border-radius:8px;background:var(--grad-brand);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:800;box-shadow:var(--glow)}
+  nav.anchors{display:flex;gap:2px;flex-wrap:wrap;margin-left:8px}
+  nav.anchors a{color:var(--muted-fg);padding:6px 10px;border-radius:var(--radius-md);font-weight:500;font-size:13px}
+  nav.anchors a:hover{background:var(--muted);color:var(--fg);text-decoration:none}
+  .spacer{flex:1}
+  .toggle{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--card);color:var(--fg);padding:7px 13px;border-radius:var(--radius-md);cursor:pointer;font:inherit;font-size:13px;font-weight:600}
+  .toggle:hover{background:var(--muted)}
+
+  /* ===== hero ===== */
+  .hero{position:relative;overflow:hidden}
+  /* Unique on-brand background: subtle aerospace "blueprint grid" + corner brand glow (static, not aurora) */
+  .hero .aurora{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.6;
+    background-image:
+      radial-gradient(60% 60% at 90% -10%,color-mix(in srgb,var(--primary) 9%,transparent),transparent 70%),
+      linear-gradient(color-mix(in srgb,var(--accent-fg) 22%,transparent) 1px,transparent 1px),
+      linear-gradient(90deg,color-mix(in srgb,var(--accent-fg) 22%,transparent) 1px,transparent 1px);
+    background-size:auto,34px 34px,34px 34px;
+    -webkit-mask-image:radial-gradient(130% 95% at 82% 0%,#000 28%,transparent 76%);
+            mask-image:radial-gradient(130% 95% at 82% 0%,#000 28%,transparent 76%)}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.18fr;gap:40px;align-items:center}
+  .badge-pill{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:var(--accent-fg);border:1px solid color-mix(in srgb,var(--accent-fg) 30%,transparent);padding:5px 13px;border-radius:999px;font-size:12px;font-weight:700}
+  .hero h1{margin-top:16px}
+  .hero h1 .grad{background:var(--grad-sky);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .chips{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap}
+
+  /* ===== APP-SHELL MOCK (rich sidebar) ===== */
+  .appshell{border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-3);border:1px solid var(--border);display:grid;grid-template-columns:212px 1fr;background:var(--card);min-height:466px}
+  .ash-side{background:var(--grad-brand);color:#fff;padding:14px 12px;display:flex;flex-direction:column;gap:3px;position:relative}
+  .ash-brand{display:flex;align-items:center;gap:9px;font-weight:700;padding:4px 6px 12px;font-size:14px}
+  .ash-brand .lg{width:26px;height:26px;border-radius:7px;background:#fff;display:grid;place-items:center;color:#2E3192;font-weight:800;font-size:13px}
+  .ash-cta{display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);color:#fff;font:inherit;font-weight:600;font-size:13px;padding:9px;border-radius:9px;margin-bottom:8px;cursor:pointer}
+  .ash-cta:hover{background:rgba(255,255,255,.24)}
+  .ash-group{font-size:10px;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.55);padding:12px 8px 4px}
+  .ash-nav{position:relative;display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;color:#cfd1f5;font-size:13px;font-weight:500;cursor:pointer}
+  .ash-nav svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.9;opacity:.95;flex-shrink:0}
+  .ash-nav:hover{background:rgba(255,255,255,.08);color:#fff}
+  .ash-nav .cnt{margin-left:auto;font-size:11px;font-weight:700;background:rgba(255,255,255,.18);padding:1px 7px;border-radius:999px}
+  .ash-nav .cnt.red{background:#EC1D23;color:#fff}
+  .ash-nav.active{background:rgba(255,255,255,.16);color:#fff;font-weight:600}
+  .ash-nav.active::before{content:"";position:absolute;left:-12px;top:7px;bottom:7px;width:3px;border-radius:0 3px 3px 0;background:#fff;box-shadow:0 0 12px rgba(255,255,255,.7)}
+  .ash-user{margin-top:auto;display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:9px 10px;font-size:12px}
+  .ash-user .av{width:26px;height:26px;border-radius:999px;background:#EC1D23;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff}
+  .ash-user .nm{font-weight:600;color:#fff} .ash-user .ro{color:rgba(255,255,255,.6);font-size:11px}
+  .ash-user .chev{margin-left:auto;opacity:.6}
+
+  .ash-main{background:var(--bg);display:flex;flex-direction:column}
+  .ash-top{height:46px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;padding:0 14px}
+  .ash-search{flex:1;max-width:300px;height:30px;border:1px solid var(--input);border-radius:8px;display:flex;align-items:center;padding:0 10px;color:var(--muted-fg);font-size:12px;gap:6px}
+  .ash-ico{width:16px;height:16px;border-radius:5px;background:var(--muted)}
+  .ash-content{padding:16px;display:flex;flex-direction:column;gap:14px;overflow:hidden}
+  .dash-head{display:flex;align-items:center;justify-content:space-between}
+
+  /* bento */
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .bt{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px}
+  .bt.span2{grid-column:span 2}
+  .kpi-hero{border-radius:14px;padding:13px;color:#fff;background:var(--grad-sky);box-shadow:var(--glow)}
+  .kpi-hero.alt{background:linear-gradient(135deg,#0E7490,#0891B2);box-shadow:0 10px 30px -8px rgba(8,145,178,.45)}
+  .kpi-hero .k{font-size:11px;opacity:.85;font-weight:600} .kpi-hero .v{font-size:24px;font-weight:800;margin-top:3px}
+  .bt .k{font-size:11px;color:var(--muted-fg);font-weight:600} .bt .v{font-size:24px;font-weight:800;margin-top:3px} .bt .v small{font-size:13px;font-weight:700}
+  .pt{font-size:12px;font-weight:600;margin-bottom:10px;color:var(--muted-fg)}
+  .bars{display:flex;align-items:flex-end;gap:5px;height:88px;justify-content:space-between}
+  .bar-c{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;min-width:0}
+  .bar-c .bk{width:100%;border-radius:6px 6px 0 0;margin-top:auto} .bar-c .bv{font-size:10px;font-weight:700;color:var(--fg)}
+  .bar-c .bl{font-size:9px;color:var(--muted-fg);text-align:center;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .donut{width:96px;height:96px;border-radius:999px;background:conic-gradient(var(--st-won) 0 62%,var(--st-lost) 62% 78%,var(--muted) 78% 100%);display:grid;place-items:center;margin:0 auto}
+  .donut .hole{width:60px;height:60px;border-radius:999px;background:var(--card);display:grid;place-items:center;text-align:center}
+  .donut .hole b{font-size:17px} .donut .hole span{font-size:10px;color:var(--muted-fg)}
+  .attn{display:flex;flex-direction:column;gap:8px}
+  .attn .it{display:flex;align-items:center;gap:8px;font-size:12px} .attn .it .tg{margin-left:auto;font-weight:700}
+
+  /* ===== components ===== */
+  .btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:var(--radius-md);font:inherit;font-weight:600;font-size:13px;cursor:pointer;border:1px solid transparent}
+  .btn-primary{background:var(--grad-sky);color:#fff;box-shadow:0 4px 14px -4px rgba(46,49,146,.5)} .btn-primary:hover{filter:brightness(1.06)}
+  .btn-secondary{background:var(--muted);color:var(--fg)} .btn-outline{background:transparent;color:var(--fg);border-color:var(--input)}
+  .btn-ghost{background:transparent;color:var(--fg)} .btn-ghost:hover{background:var(--muted)} .btn-destructive{background:var(--destructive-strong);color:#fff}
+  .btn:active{transform:scale(.98)} .btn:focus-visible{outline:2px solid var(--primary);outline-offset:2px} .btn.sm{height:28px;padding:0 11px;font-size:11px}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;line-height:1.7}
+  .pill .dot{width:7px;height:7px;border-radius:999px;background:currentColor} .pills-wrap{display:flex;flex-wrap:wrap;gap:8px}
+  .field{display:flex;flex-direction:column;gap:6px;max-width:320px} .field label{font-weight:600;font-size:13px}
+  .field .ctrl{height:38px;border:1px solid var(--input);background:var(--card);border-radius:var(--radius-md);padding:0 12px;display:flex;align-items:center;color:var(--muted-fg)}
+  .field .ctrl.focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 20%,transparent);color:var(--fg)}
+  .help{font-size:12px;color:var(--muted-fg)} .err{font-size:12px;color:var(--destructive);font-weight:500}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px} .kpi .k{font-size:12px;color:var(--muted-fg);font-weight:600} .kpi .v{font-size:24px;font-weight:700;margin-top:4px}
+  .tracker{display:flex;align-items:center;overflow-x:auto;padding:4px 0}
+  .step{display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .step .num{width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-size:12px;font-weight:700;border:2px solid var(--border);color:var(--muted-fg);background:var(--card)}
+  .step.done .num{background:var(--success);border-color:var(--success);color:#fff} .step.active .num{background:var(--grad-sky);border-color:transparent;color:#fff;box-shadow:var(--glow)}
+  .step .lbl{font-size:12px;font-weight:500;color:var(--muted-fg)} .step.active .lbl{color:var(--fg);font-weight:700}
+  .step .bar{width:26px;height:2px;background:var(--border);margin:0 6px} .step.done .bar{background:var(--success)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted-fg);font-weight:700;padding:8px 12px;border-bottom:1px solid var(--border)}
+  td{padding:10px 12px;border-bottom:1px solid var(--border)} tr:hover td{background:var(--card-2)}
+  .num-cell{text-align:right;font-variant-numeric:tabular-nums}
+  .table-wrap{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:var(--card)}
+  .subtotal td{font-weight:700;background:var(--card-2)} .total td{font-weight:800;border-top:2px solid var(--fg)} .stale td{background:var(--warning-bg);border-left:3px solid var(--warning)}
+  .timeline{position:relative;padding-left:22px} .timeline::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:var(--border)}
+  .tl{position:relative;padding:0 0 18px 0} .tl::before{content:"";position:absolute;left:-19px;top:4px;width:11px;height:11px;border-radius:999px;background:var(--st-eng);border:2px solid var(--bg)} .tl.scm::before{background:var(--st-returned)}
+  .tl .h{font-size:13px;font-weight:600;display:flex;gap:8px;align-items:center;flex-wrap:wrap} .tl .diff{font-size:13px;margin-top:2px} .tl .old{color:var(--muted-fg);text-decoration:line-through} .tl .new{font-weight:700} .tl .meta{font-size:12px;color:var(--muted-fg);margin-top:2px} .recalc{font-size:12px;color:var(--warning);font-weight:600;margin-top:4px}
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .sw{border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;background:var(--card);transition:transform .15s} .sw:hover{transform:translateY(-2px)}
+  .sw .chip{height:56px} .sw .meta{padding:8px 10px} .sw .nm{font-weight:600;font-size:12px} .sw .hex{font-family:var(--mono);font-size:11px;color:var(--muted-fg)} .sw .wc{font-size:10px;font-weight:600;margin-top:2px}
+  .ok{color:var(--success)} .warn{color:var(--warning)}
+  .typerow{display:flex;align-items:baseline;gap:16px;padding:8px 0;border-bottom:1px solid var(--border)} .typerow .tag{font-family:var(--mono);font-size:11px;color:var(--muted-fg);width:130px;flex-shrink:0}
+  .spaces{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap} .spbox{text-align:center} .spbox .b{background:var(--grad-sky);border-radius:3px} .spbox .t{font-size:11px;color:var(--muted-fg);margin-top:4px;font-family:var(--mono)}
+  .elevs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px} .elev{height:80px;border-radius:var(--radius-md);background:var(--card);display:grid;place-items:center;font-size:12px;color:var(--muted-fg);border:1px solid var(--border)}
+  .flow{display:flex;align-items:stretch;gap:8px;overflow-x:auto;padding-bottom:8px}
+  .fstep{min-width:155px;flex:1;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:13px;position:relative;box-shadow:var(--shadow-1)} .fstep .n{font-size:11px;font-weight:800;color:var(--accent-fg)} .fstep .ti{font-weight:700;font-size:13px;margin:3px 0 4px} .fstep .d{font-size:12px;color:var(--muted-fg)} .fstep::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--muted-fg);font-size:16px} .fstep:last-child::after{display:none}
+  .smap{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .scr{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:14px;transition:transform .15s,box-shadow .15s} .scr:hover{transform:translateY(-2px);box-shadow:var(--shadow-2)}
+  .scr .rt{font-family:var(--mono);font-size:11px;color:var(--muted-fg)} .scr .nm{font-weight:700;margin:2px 0} .scr .ro{font-size:12px;color:var(--muted-fg)}
+  .wfgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .wf{border:1px solid var(--border);border-radius:var(--radius-md);background:var(--card-2);overflow:hidden} .wf .bar{height:30px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 10px;font-size:12px;font-weight:700;gap:8px} .wf .body{padding:12px;display:flex;flex-direction:column;gap:8px}
+  .row{display:flex;gap:8px;align-items:center} .box{border:1px dashed var(--input);border-radius:6px;height:40px;flex:1;display:grid;place-items:center;font-size:11px;color:var(--muted-fg)} .ln{height:8px;background:var(--border);border-radius:3px} .ln.m{width:65%} .ln.l{width:85%}
+  .cardvars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .cv{border-radius:var(--radius-lg);padding:16px;font-size:13px;font-weight:600;min-height:92px;display:flex;flex-direction:column;justify-content:flex-end}
+  .cv small{display:block;font-weight:500;color:var(--muted-fg);font-size:11px;margin-top:3px}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:24px} .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .sidebar-demo{display:grid;grid-template-columns:auto auto 1fr;gap:24px;align-items:start}
+  .mini-side{width:212px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-2)} .mini-side.collapsed{width:64px}
+  .footer{padding:32px 24px;color:var(--muted-fg);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  @media(max-width:980px){.hero-grid,.twocol,.wfgrid{grid-template-columns:1fr}.principles,.cardvars{grid-template-columns:1fr 1fr}.kpis,.elevs,.bento{grid-template-columns:repeat(2,1fr)}.bt.span2,.kpi-hero{grid-column:auto}nav.anchors{display:none}.appshell{grid-template-columns:1fr}.ash-side{display:none}.sidebar-demo{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <div style="width: 28px; height: 28px; border-radius: 6px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); box-shadow: var(--shadow-1); flex-shrink: 0;">
+      <img src="../rangsons-logo2.png" alt="Rangsons Aerospace" style="width: 100%; height: 100%; display: block; object-fit: contain; padding: 2px;" />
+    </div>
+    <span style="font-weight: 700; font-size: 14px; margin-left: 2px;">Rangsons RFQ</span>
+  </div>
+  <nav class="anchors">
+    <a href="#style">Style</a><a href="#sidebar">Sidebar</a><a href="#color">Color</a><a href="#type">Type</a>
+    <a href="#cards">Cards/Bento</a><a href="#components">Components</a><a href="#flow">Flow</a><a href="#screens">Screens</a>
+  </nav>
+  <div class="spacer"></div>
+  <button class="toggle" id="themeBtn" aria-label="Toggle theme">☾ <span id="themeLbl">Dark</span></button>
+</header>
+
+<!-- HERO + APP SHELL -->
+<section id="style" class="hero">
+  <div class="aurora"></div>
+  <div class="hero-grid">
+    <div>
+      <span class="badge-pill">● Design &amp; Brand Guidelines · v1</span>
+      <h1>Customer RFQ Platform<br><span class="grad">design system</span></h1>
+      <p class="lead">The single visual reference — colors, type, components, sidebar, and end-to-end UI/UX. <strong>Light default, full dark</strong> (toggle top-right). Font: <strong>Geist</strong> (Inter fallback).</p>
+      <p class="lead" style="margin-top:12px"><strong>“Calm Enterprise, bolder.”</strong> Dense &amp; modern like Linear/Stripe, with a gradient app shell, a rich sidebar, a bento dashboard, and tasteful motion. Impressive through precision.</p>
+      <div class="chips">
+        <span class="pill" style="color:var(--st-eng);background:color-mix(in srgb,var(--st-eng) 12%,transparent)"><span class="dot"></span>Bento dashboard</span>
+        <span class="pill" style="color:var(--st-est);background:color-mix(in srgb,var(--st-est) 12%,transparent)"><span class="dot"></span>Rich sidebar</span>
+        <span class="pill" style="color:var(--st-won);background:color-mix(in srgb,var(--st-won) 12%,transparent)"><span class="dot"></span>WCAG 2.2 AA</span>
+        <span class="pill" style="color:var(--st-pending);background:color-mix(in srgb,var(--st-pending) 12%,transparent)"><span class="dot"></span>Micro-interactions, reduced-motion safe</span>
+      </div>
+    </div>
+
+    <!-- APP-SHELL with RICH sidebar + bento -->
+    <div class="appshell" role="img" aria-label="App shell with rich gradient sidebar and bento dashboard">
+      <aside class="ash-side">
+        <div class="ash-brand" style="gap: 8px;">
+          <div style="width: 24px; height: 24px; border-radius: 6px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0,0,0,0.05); flex-shrink: 0;">
+            <img src="../rangsons-logo2.png" alt="Rangsons Aerospace" style="width: 100%; height: 100%; display: block; object-fit: contain; padding: 2px;" />
+          </div>
+          <span style="font-weight: 700; color: #fff; font-size: 13px;">Rangsons RFQ</span>
+        </div>
+        <button class="ash-cta">＋ New Enquiry</button>
+        <div class="ash-group">WORKSPACE</div>
+        <div class="ash-nav active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Dashboard</div>
+        <div class="ash-nav"><svg viewBox="0 0 24 24"><path d="M9 5h6M9 3h6a2 2 0 0 1 2 2v0M5 7h14v14H5z"/><path d="M9 12h6M9 16h6"/></svg> Enquiries <span class="cnt">42</span></div>
+        <div class="ash-nav"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg> Needs attention <span class="cnt red">3</span></div>
+        <div class="ash-group">ADMIN</div>
+        <div class="ash-nav"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M2 21v-1a6 6 0 0 1 6-6M16 11l2 2 4-4"/></svg> Users</div>
+        <div class="ash-nav"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.3 1a7 7 0 0 0-1.7-1l-.4-2.6h-4l-.4 2.6a7 7 0 0 0-1.7 1l-2.3-1-2 3.4L4.1 11a7 7 0 0 0 0 2l-2 1.5 2 3.4 2.3-1a7 7 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7 7 0 0 0 1.7-1l2.3 1 2-3.4-2-1.5a7 7 0 0 0 .1-1z"/></svg> Settings</div>
+        <div class="ash-user"><span class="av">H</span><div><div class="nm">Harshan Aiyappa</div><div class="ro">Business Development</div></div><span class="chev">▾</span></div>
+      </aside>
+      <div class="ash-main">
+        <div class="ash-top">
+          <div class="ash-search">
+            <span class="ash-ico" style="flex-shrink: 0;"></span>
+            <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Search RFQ / customer / part… ⌘K</span>
+          </div>
+          <div class="spacer"></div><span class="ash-ico"></span><span class="ash-ico" style="border-radius:999px"></span>
+        </div>
+        <div class="ash-content">
+          <div class="dash-head"><div style="font-weight:700;font-size:15px">Dashboard</div><button class="btn btn-primary sm">＋ New Enquiry</button></div>
+          <div class="bento">
+            <div class="kpi-hero reveal"><div class="k">Active RFQs</div><div class="v">42</div></div>
+            <div class="kpi-hero alt reveal"><div class="k">Avg turnaround</div><div class="v">11d</div></div>
+            <div class="bt reveal"><div class="k">Pending approval</div><div class="v">6</div></div>
+            <div class="bt reveal"><div class="k">Win rate</div><div class="v">62<small>%</small></div></div>
+            <div class="bt span2"><div class="pt">RFQs by stage</div><div style="font-size:11px;color:var(--st-scm);font-weight:600;margin:-4px 0 8px">↳ SCM is the bottleneck — 40% of active RFQs are in sourcing.</div>
+              <div class="bars">
+                <div class="bar-c"><div class="bv">8</div><div class="bk" style="height:40%;background:var(--st-eng)"></div><div class="bl">Eng</div></div>
+                <div class="bar-c"><div class="bv">5</div><div class="bk" style="height:28%;background:var(--st-cft)"></div><div class="bl">CFT</div></div>
+                <div class="bar-c"><div class="bv">17</div><div class="bk" style="height:72%;background:var(--st-scm)"></div><div class="bl">SCM</div></div>
+                <div class="bar-c"><div class="bv">6</div><div class="bk" style="height:50%;background:var(--st-est)"></div><div class="bl">Est</div></div>
+                <div class="bar-c"><div class="bv">4</div><div class="bk" style="height:34%;background:var(--st-pending)"></div><div class="bl">Appr</div></div>
+                <div class="bar-c"><div class="bv">9</div><div class="bk" style="height:60%;background:var(--st-won)"></div><div class="bl">Won</div></div>
+              </div>
+            </div>
+            <div class="bt"><div class="pt">Outcomes</div><div style="font-size:11px;color:var(--st-won);font-weight:600;margin:-4px 0 8px">↳ Win rate 62%, up 4 pts vs last quarter.</div><div class="donut"><div class="hole"><div><b>62%</b><br><span>won</span></div></div></div></div>
+            <div class="bt"><div class="pt">Needs attention</div>
+              <div class="attn">
+                <div class="it"><span class="dot" style="background:var(--st-returned);width:7px;height:7px;border-radius:9px;display:inline-block"></span>Overdue<span class="tg" style="color:var(--st-returned)">4</span></div>
+                <div class="it"><span class="dot" style="background:var(--warning);width:7px;height:7px;border-radius:9px;display:inline-block"></span>Stale cost<span class="tg" style="color:var(--warning)">2</span></div>
+                <div class="it"><span class="dot" style="background:var(--st-scm);width:7px;height:7px;border-radius:9px;display:inline-block"></span>Open queries<span class="tg" style="color:var(--st-scm)">5</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIDEBAR SHOWCASE -->
+<section id="sidebar">
+  <div class="eyebrow">Navigation · Sidebar</div>
+  <h2>Rich, branded sidebar — not a plain list</h2>
+  <p class="lead">Gradient brand surface · grouped sections · icon + label items · live count badges · active-item accent bar · prominent create CTA · user/role card. Collapses to an icon rail.</p>
+  <div class="sidebar-demo" style="margin-top:22px">
+    <!-- expanded -->
+    <div class="mini-side ash-side" style="position:relative;min-height:auto">
+      <div class="ash-brand" style="gap: 8px;">
+        <div style="width: 24px; height: 24px; border-radius: 6px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0,0,0,0.05); flex-shrink: 0;">
+          <img src="../rangsons-logo2.png" alt="Rangsons Aerospace" style="width: 100%; height: 100%; display: block; object-fit: contain; padding: 2px;" />
+        </div>
+        <span style="font-weight: 700; color: #fff; font-size: 13px;">Rangsons RFQ</span>
+      </div>
+      <button class="ash-cta">＋ New Enquiry</button>
+      <div class="ash-group">WORKSPACE</div>
+      <div class="ash-nav active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Dashboard</div>
+      <div class="ash-nav"><svg viewBox="0 0 24 24"><path d="M5 7h14v14H5zM9 3h6a2 2 0 0 1 2 2"/><path d="M9 12h6M9 16h6"/></svg> Enquiries <span class="cnt">42</span></div>
+      <div class="ash-nav"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg> Needs attention <span class="cnt red">3</span></div>
+      <div class="ash-group">ADMIN</div>
+      <div class="ash-nav"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M2 21v-1a6 6 0 0 1 6-6"/></svg> Users</div>
+      <div class="ash-nav"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V20a2 2 0 1 1-4 0v-.2A1.6 1.6 0 0 0 7 18.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H3a2 2 0 1 1 0-4h.2A1.6 1.6 0 0 0 4.7 7"/></svg> Settings</div>
+      <div class="ash-user"><span class="av">H</span><div><div class="nm">Harshan Aiyappa</div><div class="ro">BD</div></div><span class="chev">▾</span></div>
+    </div>
+    <!-- collapsed -->
+    <div class="mini-side ash-side collapsed" style="position:relative;min-height:auto;align-items:center">
+      <div class="ash-brand" style="padding:4px 0 12px">
+        <div style="width: 24px; height: 24px; border-radius: 6px; overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0,0,0,0.05); flex-shrink: 0;">
+          <img src="../rangsons-logo2.png" alt="Rangsons Aerospace" style="width: 100%; height: 100%; display: block; object-fit: contain; padding: 2px;" />
+        </div>
+      </div>
+      <div class="ash-nav active" style="justify-content:center"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+      <div class="ash-nav" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M5 7h14v14H5zM9 3h6a2 2 0 0 1 2 2"/></svg></div>
+      <div class="ash-nav" style="justify-content:center"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+      <div class="ash-user" style="justify-content:center;padding:8px"><span class="av">H</span></div>
+    </div>
+    <div class="card" style="align-self:start">
+      <h3>Why this works</h3>
+      <ul style="margin-top:10px;padding-left:18px;color:var(--muted-fg);font-size:13px;line-height:1.9">
+        <li><strong>Branded surface</strong> — the gradient anchors identity; the content stays neutral.</li>
+        <li><strong>Scannable groups</strong> — overlines (Workspace / Admin) chunk the nav.</li>
+        <li><strong>Status, not just links</strong> — count badges (42 active, 3 need attention) make it a glance-able health bar.</li>
+        <li><strong>Clear active state</strong> — filled pill + left accent bar + glow.</li>
+        <li><strong>Role context</strong> — user card at the bottom shows who/what role.</li>
+        <li><strong>Collapsible</strong> — 64px icon rail with tooltips for power users.</li>
+        <li><strong>Role-filtered</strong> — items a role can't use don't render.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR -->
+<section id="color">
+  <div class="eyebrow">Color System</div>
+  <h2>Palette &amp; tokens</h2>
+  <p class="lead">Brand-locked + accessibility-derived (OKLCH-ready). Toggle the theme to see tokens flip. Contrast verdicts computed (AA ≥ 4.5:1).</p>
+  
+  <div style="margin: 18px 0; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; box-shadow: var(--shadow-1);">
+    <h4 style="font-weight:700;font-size:14px;margin-bottom:12px">Brand logos — two lockups</h4>
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <div style="flex:1;min-width:240px">
+        <div style="background:#fff;padding:14px 18px;border-radius:var(--radius-md);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:72px">
+          <img src="../rangsons_logo.png" alt="Rangsons Aerospace horizontal logo" style="height:34px;width:auto;display:block" />
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:8px"><strong>Horizontal lockup</strong> (<code>rangsons_logo.png</code>) — top bar (expanded), Login / Landing, wide headers, documents/PDF.</p>
+      </div>
+      <div style="flex:1;min-width:240px">
+        <div style="background:#fff;padding:14px 18px;border-radius:var(--radius-md);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:72px">
+          <img src="../rangsons-logo2.png" alt="Rangsons emblem mark" style="height:52px;width:auto;display:block" />
+        </div>
+        <p class="muted" style="font-size:12px;margin-top:8px"><strong>Emblem mark</strong> (<code>rangsons-logo2.png</code>) — favicon, collapsed sidebar rail, avatar / app icon, compact &amp; mobile.</p>
+      </div>
+    </div>
+    <p class="muted" style="font-size:12px;margin-top:12px">Both anchor the brand indigo <code>#2E3192</code> + red <code>#EC1D23</code>. On dark/gradient surfaces, place a logo on a <strong>white chip</strong> (as in the sidebar) or use a white/mono version <em>(asset to be produced)</em>.</p>
+  </div>
+
+  <h3 style="margin:24px 0 10px">Brand &amp; semantic</h3>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:var(--grad-brand)"></div><div class="meta"><div class="nm">Primary gradient</div><div class="hex">#2E3192 → #1C1C39</div><div class="wc ok">sidebar · hero</div></div></div>
+    <div class="sw"><div class="chip" style="background:#2E3192"></div><div class="meta"><div class="nm">Primary / Indigo</div><div class="hex">#2E3192</div><div class="wc ok">White 10.66:1 · AAA</div></div></div>
+    <div class="sw"><div class="chip" style="background:#EC1D23"></div><div class="meta"><div class="nm">Destructive</div><div class="hex">#EC1D23</div><div class="wc warn">use dark text / #C2161B</div></div></div>
+    <div class="sw"><div class="chip" style="background:#15803D"></div><div class="meta"><div class="nm">Success</div><div class="hex">#15803D</div><div class="wc ok">AA</div></div></div>
+    <div class="sw"><div class="chip" style="background:#B45309"></div><div class="meta"><div class="nm">Warning</div><div class="hex">#B45309</div><div class="wc ok">AA</div></div></div>
+    <div class="sw"><div class="chip" style="background:#8E92E8"></div><div class="meta"><div class="nm">Indigo accent (dark)</div><div class="hex">#8E92E8</div><div class="wc ok">on #212935 6.0:1</div></div></div>
+  </div>
+  <h3 style="margin:24px 0 10px">RFQ status hues (text + color, never color alone)</h3>
+  <div class="pills-wrap">
+    <span class="pill" style="color:var(--st-open);background:color-mix(in srgb,var(--st-open) 14%,transparent)"><span class="dot"></span>Open</span>
+    <span class="pill" style="color:var(--st-eng);background:color-mix(in srgb,var(--st-eng) 14%,transparent)"><span class="dot"></span>In Engineering Review</span>
+    <span class="pill" style="color:var(--st-cft);background:color-mix(in srgb,var(--st-cft) 14%,transparent)"><span class="dot"></span>In CFT Review</span>
+    <span class="pill" style="color:var(--st-scm);background:color-mix(in srgb,var(--st-scm) 14%,transparent)"><span class="dot"></span>In SCM Sourcing</span>
+    <span class="pill" style="color:var(--st-est);background:color-mix(in srgb,var(--st-est) 14%,transparent)"><span class="dot"></span>In Estimation</span>
+    <span class="pill" style="color:var(--st-pending);background:color-mix(in srgb,var(--st-pending) 14%,transparent)"><span class="dot"></span>Pending Approval</span>
+    <span class="pill" style="color:var(--st-submitted);background:color-mix(in srgb,var(--st-submitted) 14%,transparent)"><span class="dot"></span>Quote Submitted</span>
+    <span class="pill" style="color:var(--st-won);background:color-mix(in srgb,var(--st-won) 14%,transparent)"><span class="dot"></span>Order Received</span>
+    <span class="pill" style="color:var(--st-returned);background:color-mix(in srgb,var(--st-returned) 14%,transparent)"><span class="dot"></span>Returned to BD</span>
+    <span class="pill" style="color:var(--st-lost);background:color-mix(in srgb,var(--st-lost) 14%,transparent)"><span class="dot"></span>Lost</span>
+    <span class="pill" style="color:var(--st-closed);background:color-mix(in srgb,var(--st-closed) 14%,transparent)"><span class="dot"></span>Closed / Hold</span>
+  </div>
+</section>
+
+<!-- TYPE -->
+<section id="type">
+  <div class="eyebrow">Typography · Geist</div>
+  <h2>Geist · 14px base · fluid headings</h2>
+  <p class="lead">Geist (Inter fallback). Body fixed at 14px for table density; headings scale fluidly with <code>clamp()</code>. Money uses tabular numerals; codes use Geist Mono.</p>
+  <div style="margin-top:18px">
+    <div class="typerow"><span class="tag">display clamp 30–46</span><span style="font-size:clamp(28px,4vw,40px);font-weight:700">Quote turnaround</span></div>
+    <div class="typerow"><span class="tag">h1 clamp 24–30</span><span style="font-size:clamp(22px,3vw,28px);font-weight:700">RA-2026-0142 · Boeing</span></div>
+    <div class="typerow"><span class="tag">h2 clamp 20–26</span><span style="font-size:clamp(20px,2.4vw,24px);font-weight:700">Cost build-up</span></div>
+    <div class="typerow"><span class="tag">body 14/400 fixed</span><span style="font-size:14px">Default for body, table cells, inputs — fixed for data density.</span></div>
+    <div class="typerow"><span class="tag">sm 13 · xs 12</span><span style="font-size:13px;color:var(--muted-fg)">Secondary &amp; helper · captions/overlines.</span></div>
+    <div class="typerow"><span class="tag">mono 13</span><span class="mono">RA-MKT-F-09 · SAP 4500218823 · ₹2,14,500</span></div>
+  </div>
+</section>
+
+<!-- CARDS + BENTO -->
+<section id="cards">
+  <div class="eyebrow">Cards &amp; Bento</div>
+  <h2>Card variants + bento layout</h2>
+  <p class="lead">Formal card system; bento for dashboards (varied tiles on one grid). Gradient reserved for hero KPIs.</p>
+  <div class="cardvars" style="margin-top:18px">
+    <div class="cv" style="background:var(--card);border:1px solid var(--border)">Flat<small>tables, dense panels</small></div>
+    <div class="cv" style="background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-2)">Elevated<small>standard content</small></div>
+    <div class="cv feature" style="background:var(--card);border:1px solid var(--border)">Feature<small>gradient top-border</small></div>
+    <div class="cv" style="background:var(--grad-sky);color:#fff;box-shadow:var(--glow)">Gradient hero<small style="color:rgba(255,255,255,.8)">KPI tiles</small></div>
+  </div>
+  <h3 style="margin:24px 0 10px">Bento example (dashboard)</h3>
+  <div class="bento">
+    <div class="kpi-hero"><div class="k">Active RFQs</div><div class="v">42</div></div>
+    <div class="kpi-hero alt"><div class="k">Avg turnaround</div><div class="v">11d</div></div>
+    <div class="bt"><div class="k">Pending</div><div class="v">6</div></div>
+    <div class="bt"><div class="k">Win rate</div><div class="v">62<small>%</small></div></div>
+    <div class="bt span2"><div class="pt">Loading (skeleton shimmer)</div><div class="sk" style="width:90%"></div><div class="sk" style="width:70%;margin-top:8px"></div><div class="sk" style="width:80%;margin-top:8px"></div></div>
+    <div class="bt span2"><div class="pt">Turnaround trend</div><div style="font-size:11px;color:var(--st-eng);font-weight:600;margin:-4px 0 8px">↳ Median down to 11 days from 14.</div><div class="bars"><div class="bar-c"><div class="bk" style="height:50%;background:var(--st-eng)"></div></div><div class="bar-c"><div class="bk" style="height:65%;background:var(--st-eng)"></div></div><div class="bar-c"><div class="bk" style="height:45%;background:var(--st-eng)"></div></div><div class="bar-c"><div class="bk" style="height:70%;background:var(--st-eng)"></div></div></div></div>
+  </div>
+  <p class="muted" style="font-size:12px;margin-top:12px">Background = static aerospace <strong>blueprint grid</strong> (no aurora/beams). Micro-interactions only — hover lift, KPI count-up, staggered reveal, skeleton shimmer — all honor <code>prefers-reduced-motion</code>. Aceternity used <em>selectively</em>, never as the system.</p>
+</section>
+
+<!-- COMPONENTS -->
+<section id="components">
+  <div class="eyebrow">Components</div>
+  <h2>Core library</h2>
+  <p class="lead">shadcn/ui + Radix. Hover, focus, disabled, loading, error states on every control.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px">
+    <div class="card"><h3>Buttons</h3><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-primary">Save &amp; Notify</button><button class="btn btn-secondary">Cancel</button><button class="btn btn-outline">Recalculate</button><button class="btn btn-ghost">Follow-up</button><button class="btn btn-destructive">Mark Lost</button></div></div>
+    <div class="card"><h3>Mandatory field (can't be blank)</h3><div class="field" style="margin-top:12px"><label>Customer requirement *</label><div style="display:flex;gap:8px"><span class="pill" style="color:#fff;background:var(--primary)">◉ None specified</span><span class="pill" style="color:var(--muted-fg);background:var(--muted)">○ Specify…</span></div><span class="err">Can never be left blank</span></div></div>
+    <div class="card"><h3>Stage tracker · 8 states</h3>
+      <div class="tracker" style="margin-top:14px">
+        <div class="step done"><div class="num">✓</div><div class="lbl">Open</div></div><div class="bar"></div>
+        <div class="step done"><div class="num">✓</div><div class="lbl">Eng</div></div><div class="bar"></div>
+        <div class="step done"><div class="num">✓</div><div class="lbl">CFT</div></div><div class="bar"></div>
+        <div class="step active"><div class="num">4</div><div class="lbl">SCM</div></div><div class="bar"></div>
+        <div class="step"><div class="num">5</div><div class="lbl">Est</div></div><div class="bar"></div>
+        <div class="step"><div class="num">6</div><div class="lbl">Approval</div></div><div class="bar"></div>
+        <div class="step"><div class="num">7</div><div class="lbl">Submitted</div></div><div class="bar"></div>
+        <div class="step"><div class="num">8</div><div class="lbl">Received</div></div>
+      </div>
+    </div>
+    <div class="card"><h3>Cost build-up (6 stages)</h3>
+      <div class="table-wrap" style="margin-top:12px"><table>
+        <tr><th>Line</th><th class="num-cell">Qty</th><th class="num-cell">Amount</th></tr>
+        <tr><td>Ti-6Al-4V bar</td><td class="num-cell">12</td><td class="num-cell">₹50,400</td></tr>
+        <tr class="stale"><td>Std fastener ⚠ stale</td><td class="num-cell">200</td><td class="num-cell">₹7,600</td></tr>
+        <tr class="subtotal"><td colspan="2">Subtotal · Material</td><td class="num-cell">₹58,000</td></tr>
+        <tr class="total"><td colspan="2">Total Selling Price</td><td class="num-cell">₹2,14,500</td></tr>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section id="flow">
+  <div class="eyebrow">End-to-end flow</div>
+  <h2>Six departments, one process</h2>
+  <div class="flow" style="margin-top:20px">
+    <div class="fstep"><div class="n">STEP 1</div><div class="ti">BD — First contact</div><div class="d">Log · acknowledge · notify</div></div>
+    <div class="fstep"><div class="n">STEP 2</div><div class="ti">Engineering + CFT</div><div class="d">Completeness · BOM · feasibility</div></div>
+    <div class="fstep"><div class="n">STEP 3</div><div class="ti">SCM</div><div class="d">Contract check · quotes</div></div>
+    <div class="fstep"><div class="n">STEP 4</div><div class="ti">Estimation</div><div class="d">6-stage cost build-up</div></div>
+    <div class="fstep"><div class="n">STEP 5</div><div class="ti">Review &amp; Approval</div><div class="d">Committee → L1 → L2 → Final</div></div>
+    <div class="fstep"><div class="n">STEP 6</div><div class="ti">BD — Close loop</div><div class="d">Send · follow-up · outcome</div></div>
+  </div>
+  <p class="muted" style="font-size:12px;margin-top:14px">12 steps · 8 states · 4 gates · 5 notifications. Full table in <code>01-architecture/07-ux-flows.md</code>.</p>
+</section>
+
+<!-- SCREENS -->
+<section id="screens">
+  <div class="eyebrow">Screen map</div>
+  <h2>All 13 screens — no gaps</h2>
+  <div class="smap" style="margin-top:20px">
+    <div class="scr"><div class="rt">/</div><div class="nm">Landing / Sign-in</div><div class="ro">Branded splash · all</div></div>
+    <div class="scr"><div class="rt">/login</div><div class="nm">Login</div><div class="ro">Entry · all</div></div>
+    <div class="scr"><div class="rt">/dashboard</div><div class="nm">Dashboard &amp; Reports</div><div class="ro">Managers · bento</div></div>
+    <div class="scr"><div class="rt">/enquiries</div><div class="nm">Enquiries List</div><div class="ro">Register · all</div></div>
+    <div class="scr"><div class="rt">/enquiries/new</div><div class="nm">New Enquiry</div><div class="ro">BD, Admin</div></div>
+    <div class="scr"><div class="rt">/enquiries/:id</div><div class="nm">Enquiry Overview</div><div class="ro">Hub</div></div>
+    <div class="scr"><div class="rt">…/parts</div><div class="nm">Parts &amp; BOM</div><div class="ro">Engineering</div></div>
+    <div class="scr"><div class="rt">…/feasibility</div><div class="nm">CFT Feasibility</div><div class="ro">CFT</div></div>
+    <div class="scr"><div class="rt">…/rm-os</div><div class="nm">SCM RM &amp; OS</div><div class="ro">SCM</div></div>
+    <div class="scr"><div class="rt">…/cost-sheet</div><div class="nm">Cost Sheet</div><div class="ro">Estimation</div></div>
+    <div class="scr"><div class="rt">…/approval</div><div class="nm">Approval</div><div class="ro">Est · CEO/COO · BD</div></div>
+    <div class="scr"><div class="rt">…/revision-log</div><div class="nm">Revision Log</div><div class="ro">All</div></div>
+    <div class="scr"><div class="rt">/admin</div><div class="nm">Admin · Users &amp; Settings</div><div class="ro">Admin</div></div>
+  </div>
+</section>
+
+<div class="footer">
+  <div>Rangsons Aerospace · Customer RFQ Platform — Design &amp; Brand Guidelines. Full specs in <code>design/</code>.<br><strong>Designed by Harshan Aiyappa · Full Stack AI Engineer</strong></div>
+  <div>Geist · light default · full dark · WCAG 2.2 AA · React · Node.js · MongoDB · shadcn/ui · Radix</div>
+</div>
+
+<script>
+  const root=document.documentElement, btn=document.getElementById('themeBtn'), lbl=document.getElementById('themeLbl');
+  btn.addEventListener('click',()=>{const dark=root.getAttribute('data-theme')==='dark';root.setAttribute('data-theme',dark?'light':'dark');btn.firstChild.textContent=dark?'☾ ':'☀ ';lbl.textContent=dark?'Dark':'Light';});
+</script>
+</body>
+</html>

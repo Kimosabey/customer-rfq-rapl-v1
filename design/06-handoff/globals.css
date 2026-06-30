@@ -1,0 +1,126 @@
+/* =====================================================================
+   Rangsons RFQ Platform — Design Tokens (Tailwind v4, CSS-first)
+   Authored from design/02-design-system/09-color-system.md (validated WCAG 2.2 AA).
+   Light is default; .dark overrides. Designed by Harshan Aiyappa.
+
+   OKLCH note: values below are the validated sRGB hex (canonical, contrast-checked).
+   To modernize per 09 §9, convert each to OKLCH (Tailwind v4/shadcn style) preserving
+   these exact colors — e.g. --primary ≈ oklch(0.40 0.16 273), --foreground ≈
+   oklch(0.28 0.02 264), --destructive ≈ oklch(0.58 0.22 27). Conversion is mechanical
+   (use a tool) and must not shift the verified contrast ratios.
+   ===================================================================== */
+
+@import "tailwindcss";
+
+/* ---------- LIGHT (default) ---------- */
+:root {
+  --background:#FFFFFF; --foreground:#212935;
+  --card:#FFFFFF; --card-foreground:#212935;
+  --popover:#FFFFFF; --popover-foreground:#212935;
+  --muted:#EEF0F3; --muted-foreground:#6B7280;
+  --border:#E1E1E8; --input:#CBCED6; --ring:#2E3192;
+
+  --primary:#2E3192; --primary-foreground:#FFFFFF; --primary-hover:#262986; --primary-active:#000055;
+  --secondary:#EEF0F3; --secondary-foreground:#212935;
+  --accent:#EEF0FF; --accent-foreground:#2E3192;
+
+  --destructive:#EC1D23; --destructive-strong:#C2161B; --destructive-foreground:#FFFFFF;
+  --success:#15803D; --success-50:#ECFDF3;
+  --warning:#B45309; --warning-50:#FFFBEB;
+  --info:#2E3192; --info-50:#EEF0FF;
+
+  /* RFQ status hues */
+  --st-open:#6B7280; --st-engineering:#2E3192; --st-cft:#7C3AED; --st-scm:#D97706;
+  --st-estimation:#0E7490; --st-pending:#2563EB; --st-submitted:#0891B2; --st-won:#15803D;
+  --st-returned:#EA580C; --st-lost:#C2161B; --st-closed:#9AA1AE;
+
+  /* radius / shadow / motion / layout */
+  --radius-sm:4px; --radius-md:8px; --radius-lg:12px; --radius-xl:18px; --radius-full:9999px;
+  --shadow-1:0 1px 2px rgba(16,24,40,.06);
+  --shadow-2:0 6px 16px -4px rgba(16,24,40,.12);
+  --shadow-3:0 20px 40px -12px rgba(16,24,40,.22);
+  --grad-brand:linear-gradient(160deg,#3A3EB0 0%,#2E3192 45%,#1C1C39 100%);
+  --grad-sky:linear-gradient(135deg,#2E3192,#2563EB);
+  --motion-fast:120ms; --motion-base:200ms; --motion-slow:280ms;
+  --topbar-h:56px; --sidebar-w:240px; --sidebar-w-collapsed:64px; --content-max:1440px;
+}
+
+/* ---------- DARK ---------- */
+.dark {
+  --background:#0F131A; --foreground:#E1E1E8;
+  --card:#212935; --card-foreground:#E1E1E8;
+  --popover:#212935; --popover-foreground:#E1E1E8;
+  --muted:#2A2A2A; --muted-foreground:#9AA1AE;
+  --border:#2A2A2A; --input:#404040; --ring:#8E92E8;
+
+  --primary:#2E3192; --primary-foreground:#FFFFFF; --primary-hover:#3A3EB0; --primary-active:#1C1C39;
+  --primary-accent:#8E92E8;            /* on-surface accent (links/active/focus) — brand indigo fails on dark */
+  --secondary:#2A2A2A; --secondary-foreground:#E1E1E8;
+  --accent:#1C1C39; --accent-foreground:#8E92E8;
+
+  --destructive:#EC1D23; --destructive-strong:#C2161B; --destructive-foreground:#FFFFFF;
+  --success:#34C06A; --warning:#F0A44A; --info:#8E92E8;
+
+  /* lightened status hues (verified legible on #212935 card; pair with text labels) */
+  --st-open:#9AA1AE; --st-engineering:#8E92E8; --st-cft:#A78BFA; --st-scm:#F0A44A;
+  --st-estimation:#22B8CF; --st-pending:#5B8DEF; --st-submitted:#2CC4DD; --st-won:#34C06A;
+  --st-returned:#FB7A3C; --st-lost:#F0656A; --st-closed:#9AA1AE;
+
+  --shadow-1:0 0 0 1px rgba(255,255,255,.05);
+  --shadow-2:0 8px 20px rgba(0,0,0,.45);
+  --shadow-3:0 24px 48px rgba(0,0,0,.6);
+  --grad-brand:linear-gradient(160deg,#3A3EB0 0%,#23267A 50%,#101127 100%);
+}
+
+/* ---------- Tailwind v4 theme mapping (utilities read these) ---------- */
+@theme inline {
+  --color-background:var(--background);
+  --color-foreground:var(--foreground);
+  --color-card:var(--card);
+  --color-card-foreground:var(--card-foreground);
+  --color-popover:var(--popover);
+  --color-popover-foreground:var(--popover-foreground);
+  --color-muted:var(--muted);
+  --color-muted-foreground:var(--muted-foreground);
+  --color-border:var(--border);
+  --color-input:var(--input);
+  --color-ring:var(--ring);
+  --color-primary:var(--primary);
+  --color-primary-foreground:var(--primary-foreground);
+  --color-secondary:var(--secondary);
+  --color-secondary-foreground:var(--secondary-foreground);
+  --color-accent:var(--accent);
+  --color-accent-foreground:var(--accent-foreground);
+  --color-destructive:var(--destructive);
+  --color-destructive-foreground:var(--destructive-foreground);
+  --color-success:var(--success);
+  --color-warning:var(--warning);
+  --color-info:var(--info);
+
+  --font-sans:"Geist","Geist Sans",Inter,ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+
+  --radius-sm:var(--radius-sm);
+  --radius-md:var(--radius-md);
+  --radius-lg:var(--radius-lg);
+  --radius-xl:var(--radius-xl);
+}
+
+/* ---------- base ---------- */
+* { scrollbar-width:none; }                 /* hide scrollbars (per design) */
+*::-webkit-scrollbar { width:0; height:0; display:none; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--background); color:var(--foreground);
+  font-family:var(--font-sans); font-size:14px; line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+:focus-visible { outline:2px solid var(--ring); outline-offset:2px; }
+.tabular { font-variant-numeric:tabular-nums; }
+
+@media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
+
+/* Stack: React.js SPA + Node.js/Express API + MongoDB (local). Self-host Geist + Geist Mono
+   (e.g. @fontsource/geist) — not next/font. Toggle `.dark` on <html> via a React theme provider
+   (next-themes is Next-only). shadcn/ui consumes --background/--foreground/--primary/--ring/
+   --destructive/etc. unchanged. */

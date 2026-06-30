@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/* ===== Design tokens (from design/06-handoff/globals.css) ===== */
+:root {
+  --background: #ffffff; --foreground: #212935;
+  --card: #ffffff; --card-foreground: #212935;
+  --muted: #eef0f3; --muted-foreground: #6b7280;
+  --border: #e1e1e8; --input: #cbced6; --ring: #2e3192;
+  --primary: #2e3192; --primary-foreground: #ffffff;
+  --accent: #eef0ff; --accent-foreground: #2e3192;
+  --destructive: #ec1d23; --destructive-strong: #c2161b;
+  --success: #15803d; --warning: #b45309;
+  --st-open: #6b7280; --st-engineering: #2e3192; --st-cft: #7c3aed; --st-scm: #d97706;
+  --st-estimation: #0e7490; --st-pending: #2563eb; --st-submitted: #0891b2; --st-won: #15803d;
+  --st-returned: #ea580c; --st-lost: #c2161b; --st-closed: #9aa1ae;
+  --warning-bg: #fffbeb;
+  --grad-brand: linear-gradient(160deg, #3a3eb0 0%, #2e3192 45%, #1c1c39 100%);
+  --grad-sky: linear-gradient(135deg, #2e3192, #2563eb);
+  --shadow-1: 0 1px 2px rgba(16,24,40,.06);
+  --shadow-2: 0 6px 16px -4px rgba(16,24,40,.12);
+  --glow: 0 10px 40px -8px rgba(46,49,146,.45);
+}
+.dark {
+  --background: #0f131a; --foreground: #e1e1e8;
+  --card: #212935; --card-foreground: #e1e1e8;
+  --muted: #2a2a2a; --muted-foreground: #9aa1ae;
+  --border: #2a2a2a; --input: #404040; --ring: #8e92e8;
+  --primary: #2e3192; --primary-foreground: #ffffff;
+  --accent: #1c1c39; --accent-foreground: #8e92e8;
+  --st-open: #9aa1ae; --st-engineering: #8e92e8; --st-cft: #a78bfa; --st-scm: #f0a44a;
+  --st-estimation: #22b8cf; --st-pending: #5b8def; --st-submitted: #2cc4dd; --st-won: #34c06a;
+  --st-returned: #fb7a3c; --st-lost: #f0656a; --st-closed: #9aa1ae;
+  --warning-bg: #2a2410;
+  --grad-brand: linear-gradient(160deg, #3a3eb0 0%, #23267a 50%, #101127 100%);
+  --shadow-1: 0 0 0 1px rgba(255,255,255,.05);
+  --shadow-2: 0 8px 20px rgba(0,0,0,.45);
+  --glow: 0 12px 48px -8px rgba(46,49,146,.6);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --font-sans: "Geist", Inter, ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+* { scrollbar-width: none; }
+*::-webkit-scrollbar { width: 0; height: 0; display: none; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* aerospace blueprint-grid background (static, not aurora) */
+.blueprint {
+  background-image:
+    radial-gradient(60% 60% at 90% -10%, color-mix(in srgb, var(--primary) 9%, transparent), transparent 70%),
+    linear-gradient(color-mix(in srgb, var(--accent-foreground) 18%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent-foreground) 18%, transparent) 1px, transparent 1px);
+  background-size: auto, 34px 34px, 34px 34px;
+}
+
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
