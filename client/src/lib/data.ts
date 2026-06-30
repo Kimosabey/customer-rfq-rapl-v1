@@ -14,5 +14,8 @@ export const getEnquiries = (): Promise<Enquiry[]> =>
 export const getDashboardSummary = (): Promise<DashboardSummary> =>
   USE_MOCK ? delay(MOCK_DASHBOARD) : api<DashboardSummary>("/dashboard/summary");
 
+export const getEnquiry = (id: string): Promise<Enquiry | undefined> =>
+  USE_MOCK ? delay(MOCK_ENQUIRIES.find((e) => e._id === id)) : api<Enquiry>(`/enquiries/${id}`);
+
 export const findMockUser = (email: string): { name: string; email: string; role: Role } | undefined =>
   MOCK_USERS.find((u) => u.email.toLowerCase() === email.toLowerCase());

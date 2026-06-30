@@ -5,6 +5,7 @@ import { AppShell } from "./components/AppShell";
 import { Login } from "./pages/Login";
 import { EnquiriesList } from "./pages/EnquiriesList";
 import { Dashboard } from "./pages/Dashboard";
+import { EnquiryOverview } from "./pages/EnquiryOverview";
 import { Placeholder } from "./pages/Placeholder";
 
 function RequireAuth({ children }: { children: ReactNode }) {
@@ -28,7 +29,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/enquiries" element={<EnquiriesList />} />
         <Route path="/enquiries/new" element={<Placeholder title="New Enquiry" />} />
-        <Route path="/enquiries/:id" element={<Placeholder title="Enquiry Overview" />} />
+        <Route path="/enquiries/:id" element={<EnquiryOverview />} />
         <Route path="/needs-attention" element={<Placeholder title="Needs attention" />} />
         <Route path="/admin/users" element={<Placeholder title="Users" />} />
         <Route path="/admin/settings" element={<Placeholder title="Cost Settings" />} />
