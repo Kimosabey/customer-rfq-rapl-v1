@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { api } from "./api";
+import { USE_MOCK, findMockUser } from "./data";
 
 export type Role = "BD" | "Engineering" | "CFT" | "SCM" | "Estimation" | "CEO_COO" | "Admin";
 export const ROLE_LABEL: Record<Role, string> = {
@@ -38,6 +39,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     else localStorage.removeItem("user");
   };
   const login = async (email: string) => {
+    const derive = () =>
+      email.split("@")[0].replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) || "Demo User";
+    if (USE_MOCK) {
+      const u = findMockUser(email);
+      persist(u ?? { name: derive(), email, role: "BD" });
+      return;
+    }
     try {
       const { user } = await api<{ token: string; user: User }>("/auth/login", {
         method: "POST",
@@ -45,10 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       persist(user); // seeded email → real name + role
     } catch {
-      // demo fallback: any email signs in as a BD user
-      const name =
-        email.split("@")[0].replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) || "Demo User";
-      persist({ name, email, role: "BD" });
+      persist({ name: derive(), email, role: "BD" }); // demo fallback
     }
   };
   const logout = () => persist(null);

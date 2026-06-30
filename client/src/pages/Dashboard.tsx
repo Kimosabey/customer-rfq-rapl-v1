@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import ReactECharts from "echarts-for-react";
-import { api, type DashboardSummary } from "../lib/api";
+import { getDashboardSummary } from "../lib/data";
 import { Card, Skeleton } from "../components/ui";
 import { useTheme } from "../lib/theme";
 
@@ -38,7 +38,7 @@ export function Dashboard() {
   const { theme } = useTheme();
   const { data, isLoading } = useQuery({
     queryKey: ["dashboard"],
-    queryFn: () => api<DashboardSummary>("/dashboard/summary"),
+    queryFn: getDashboardSummary,
   });
 
   const { barOption, donutOption, insight } = useMemo(() => {

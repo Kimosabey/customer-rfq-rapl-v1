@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { Search, Plus, Inbox } from "lucide-react";
-import { api, type Enquiry } from "../lib/api";
+import type { Enquiry } from "../lib/api";
+import { getEnquiries } from "../lib/data";
 import { StatusBadge, Skeleton, EmptyState, Button } from "../components/ui";
 import { useAuth } from "../lib/auth";
 
@@ -16,7 +17,7 @@ export function EnquiriesList() {
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["enquiries"],
-    queryFn: () => api<Enquiry[]>("/enquiries"),
+    queryFn: getEnquiries,
   });
 
   const rows = useMemo(() => {
