@@ -1,6 +1,6 @@
 # AeroQuote ↔ Design Sync Traceability
 
-> Proves the design UI/UX is **100% synced** with the two sources — [`AeroQuote-UIUX-Documentation.md`](../AeroQuote-UIUX-Documentation.md) (the wireframe spec) and [`01-architecture/07-ux-flows.md`](01-architecture/07-ux-flows.md) (canonical flow) — from top layers down to micro-level rules. Every row maps a source item → where it's applied. **No gaps.**
+> Proves the design UI/UX is **100% synced** with the two sources — [`AeroQuote-UIUX-Documentation.md`](../sources/AeroQuote-UIUX-Documentation.md) (the wireframe spec) and [`01-architecture/07-ux-flows.md`](01-architecture/07-ux-flows.md) (canonical flow) — from top layers down to micro-level rules. Every row maps a source item → where it's applied. **No gaps.**
 
 ## A. AeroQuote MD §-by-§ → applied in
 
