@@ -4,6 +4,7 @@ import { Layers, MessageCircleQuestion, AlertTriangle, Clock, ChevronRight, File
 import { getEnquiry } from "../lib/data";
 import { Card, StatusBadge, Skeleton, EmptyState, Button } from "../components/ui";
 import { StageTracker } from "../components/StageTracker";
+import { WorkspaceTabs } from "../components/WorkspaceTabs";
 import { useAuth } from "../lib/auth";
 
 function Kpi({ icon, label, value, hue }: { icon: React.ReactNode; label: string; value: number; hue?: string }) {
@@ -50,26 +51,7 @@ export function EnquiryOverview() {
         <StatusBadge status={e.status} />
       </div>
 
-      {/* tab strip (Overview active; others link to placeholders) */}
-      <div className="mt-3 flex gap-1 overflow-x-auto border-b text-sm" style={{ borderColor: "var(--border)" }}>
-        {[
-          ["Overview", ""],
-          ["Parts & BOM", "/parts"],
-          ["CFT", "/feasibility"],
-          ["SCM", "/rm-os"],
-          ["Cost Sheet", "/cost-sheet"],
-          ["Approval", "/approval"],
-          ["Revision Log", "/revision-log"],
-        ].map(([label], i) => (
-          <span
-            key={label}
-            className="whitespace-nowrap px-3 py-2 font-medium"
-            style={i === 0 ? { color: "var(--accent-foreground)", borderBottom: "2px solid var(--accent-foreground)" } : { color: "var(--muted-foreground)" }}
-          >
-            {label}
-          </span>
-        ))}
-      </div>
+      <WorkspaceTabs id={id} />
 
       {/* stage tracker */}
       <Card className="mt-4">
