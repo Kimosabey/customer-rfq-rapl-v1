@@ -1361,11 +1361,14 @@ class Component extends DCLogic {
     window.addEventListener('resize', this._onResize);
     { const w=window.innerWidth; this._bucket = w<760?'m': w<1180?'t':'d'; if(this._bucket==='t') this.setState({vw:w, collapsed:true}); else this.setState({vw:w}); }
     this.ensureEcharts(()=>{ this._ready=true; this.syncCharts(); });
+    this._onLoad=()=>{ this._chartKey=null; this.syncCharts(); this.resizeCharts(); };
+    if(document.readyState==='complete'){ setTimeout(this._onLoad,0); } else { window.addEventListener('load', this._onLoad); }
     this.animateKpis();
   }
   componentWillUnmount(){
     window.removeEventListener('keydown', this._onKey);
     window.removeEventListener('resize', this._onResize);
+    if(this._onLoad){ window.removeEventListener('load', this._onLoad); }
     this.disposeCharts();
   }
   componentDidUpdate(prevProps, prevState){
@@ -1486,6 +1489,12 @@ class Component extends DCLogic {
       });
       this._charts.line=c;
     }
+    // Charts may init before layout/fonts settle (blank on first paint).
+    // Force a few deferred resizes so they render with data on load — no click needed.
+    if(typeof requestAnimationFrame==='function'){ requestAnimationFrame(()=>this.resizeCharts()); }
+    setTimeout(()=>this.resizeCharts(),60);
+    setTimeout(()=>this.resizeCharts(),300);
+    if(document.fonts && document.fonts.ready && document.fonts.ready.then){ document.fonts.ready.then(()=>this.resizeCharts()); }
   }
 
   sortArrow(key){
